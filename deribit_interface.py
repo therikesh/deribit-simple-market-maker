@@ -144,25 +144,25 @@ class Deribit:
 
 
 	@thread_decor
-	def start_quote_update(self, instrument_name='BTC-PERPETUAL', func_for_quoting=False): # if start it, New quote contain in 'Quote' value
+	def start_orderbook_update(self, instrument_name='BTC-PERPETUAL'): # current orderbook contain in 'Orderbook'
 		self.__first = True
 		msg = {"jsonrpc": "2.0",
 			 "method": "public/subscribe",
 			 "id": 42,
 			 "params": {
-				"channels": ["quote."+str(instrument_name)]}
+				"channels": ["book."+str(instrument_name)+".none.1.100ms"]}
 			}
 		try:
 			def on_message(ws, message):
 				print(message)
 				if self.__first: self.__first=False; return
-				self.logwritter('quote')
-				self.Quote = json.loads(message)['params']['data']
-				if func_for_quoting: func_for_quoting() # Запуск вспомогательной функции, если она есть.
+				#self.logwritter('Orderbook')
+				self.Orderbook = json.loads(message)['params']['data']
+				#if func_for_quoting: func_for_quoting() # Запуск вспомогательной функции, если она есть.
 			def on_error(ws, error):
-				self.logwritter('quote updater error: '+str(error))
+				self.logwritter('Orderbook updater error: '+str(error))
 			def on_close(ws):
-				self.logwritter('quote updater error:closed connect')
+				self.logwritter('Orderbook updater error:closed connect')
 			def on_open(ws):
 				ws.send(json.dumps(msg))
 			websocket.enableTrace(True)
@@ -173,4 +173,4 @@ class Deribit:
 			ws.on_open = on_open
 			ws.run_forever()
 		except Exception as er:
-			self.logwritter('quote updater error: '+str(er))
+			self.logwritter('Orderbook updater error: '+str(er))
