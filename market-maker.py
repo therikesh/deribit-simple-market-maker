@@ -124,7 +124,7 @@ def Order_manager(timeout=0.1):
 
 if __name__=="__main__":
 	#open('log.log', 'w')
-	deribit.start_orderbook_update(instrument_name='BTC-PERPETUAL')
+	deribit.start_orderbook_update(instrument_name=INSTRUMENT_NAME)
 	time.sleep(3)
 	First_setuper()
 	Order_manager()
