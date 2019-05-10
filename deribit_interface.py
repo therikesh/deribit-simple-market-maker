@@ -20,10 +20,14 @@ class Deribit:
 		self.WSS_url = 'wss://test.deribit.com/ws/api/v2' if test else 'wss://deribit.com/ws/api/v2'
 		self._auth(client_ID, client_secret, self.WSS_url)
 
+
+
 	def logwritter(self, msg, filename='log.log'):
 		out = datetime.now().strftime("\n[%Y%m%d,%H:%M:%S] ")+str(msg)
 		print(out)
 		open(filename, 'a').write(out)
+
+
 
 	def _auth(self, client_ID, client_secret, WSS_url):
 		try:
@@ -42,6 +46,8 @@ class Deribit:
 		except Exception as er:
 			self.logwritter('auth error:'+str(er))
 
+
+
 	def _sender(self, msg):
 		try:
 			self.logwritter(msg['method'])
@@ -51,6 +57,7 @@ class Deribit:
 		except Exception as er:
 			self.logwritter(str(out))
 			self.logwritter('_sender error: '+str(er))
+
 
 
 	def make_order(self,
@@ -109,6 +116,7 @@ class Deribit:
 		return self._sender(msg)
 
 
+
 	def cancel_order(self, order_id):
 		msg ={
 			  "jsonrpc": "2.0",
@@ -118,6 +126,7 @@ class Deribit:
 				"order_id": order_id}
 			}
 		return self._sender(msg)
+
 
 
 	def get_order_state(self, order_id):
@@ -131,6 +140,7 @@ class Deribit:
 		return self._sender(msg)
 
 
+
 	def get_order_book(self, instrument_name, depth=1):
 		msg ={
 		  "jsonrpc": "2.0",
@@ -141,6 +151,7 @@ class Deribit:
 			"depth": depth}
 		}
 		return self._sender(msg)
+
 
 
 	@thread_decor
@@ -174,3 +185,19 @@ class Deribit:
 			ws.run_forever()
 		except Exception as er:
 			self.logwritter('Orderbook updater error: '+str(er))
+
+
+
+'''
+ You can add new methods. Example:
+
+	def name_method(self, param1, param2):
+		msg ={
+		  "jsonrpc": "2.0",
+		  "method": "public/METHOD",
+		  "params": {
+			"param1": param1,
+			"param2": param2}
+		}
+		return self._sender(msg)
+'''
