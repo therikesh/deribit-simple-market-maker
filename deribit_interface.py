@@ -152,8 +152,25 @@ class Deribit:
 		}
 		return self._sender(msg)
 
+	
+	
+	def get_chart_data(self, instrument_name,
+					start_timestamp, end_timestamp,
+					resolution):
+		msg ={
+		  "jsonrpc": "2.0",
+		  "id" : None,
+		  "method": "public/get_tradingview_chart_data",
+		  "params": {
+			"instrument_name": instrument_name,
+			"start_timestamp": start_timestamp,
+			'end_timestamp': end_timestamp,
+			'resolution': resolution}
+		}
+		return self._sender(msg)
 
-
+	
+	
 	@thread_decor
 	def start_orderbook_update(self, instrument_name='BTC-PERPETUAL'): # current orderbook contain in 'Orderbook'
 		self.__first = True
