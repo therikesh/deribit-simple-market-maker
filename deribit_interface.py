@@ -15,7 +15,7 @@ class Deribit:
 	def __init__(self, test, only_public=False, client_ID=False, client_secret=False):
 		if client_ID or client_secret: only_public = False
 		if only_public:
-			self.self.logwritter(msg='WARNING! Only public methods available!')
+			self.logwritter(msg='WARNING! Only public methods available!')
 			return
 		self.WSS_url = 'wss://test.deribit.com/ws/api/v2' if test else 'wss://deribit.com/ws/api/v2'
 		self._auth(client_ID, client_secret, self.WSS_url)
