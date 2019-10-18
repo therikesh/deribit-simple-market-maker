@@ -1,4 +1,4 @@
-import deribit_interface
+from interface import deribit_interface
 import threading
 import time
 
