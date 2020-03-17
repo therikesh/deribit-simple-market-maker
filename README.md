@@ -3,8 +3,8 @@
 ###Авторизация:
 ```python
 deribit = deribit_interface.Deribit(test=True, 
-	client_ID=CLIENT_ID,
- 	client_secret=CLIENT_SECRET)
+	client_ID=<client_ID>,
+ 	client_secret=<client_secret>)
 ```
 ###Создание ордера:
 ```python
