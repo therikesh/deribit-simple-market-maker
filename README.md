@@ -1,12 +1,12 @@
 # Deribit-simple-market-maker
-##Использование api:
-###Авторизация:
+## Использование api:
+### Авторизация:
 ```python
 deribit = deribit_interface.Deribit(test=True, 
 	client_ID=<client_ID>,
  	client_secret=<client_secret>)
 ```
-###Создание ордера:
+### Создание ордера:
 ```python
 deribit.make_order(side='sell',
   instrument_name=<instrument_name>,
@@ -16,9 +16,9 @@ deribit.make_order(side='sell',
 ```
 Больше примеров в файле market-maker.py 
                         
-##Простой маркет-мейкер бот для биржи Deribit (API over WebSocket)
+## Простой маркет-мейкер бот для биржи Deribit (API over WebSocket)
 
-###Что делает бот:
+### Что делает бот:
 1. Выставляет ордера с двух сторон по лучшим ценам bid/ask(пустоты не заполняет).
 2. Ждет выполнение одного из ордеров.
 3. Если один из ордеров исполняется, то ставится противоположный ордер с объемом x2 от изначального (чтобы покрыть текущую позицию и войти в новую).
